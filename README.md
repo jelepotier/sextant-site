@@ -1,1 +1,1 @@
-# sexxtant-site
+# sextant-site
