@@ -3,82 +3,348 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sextant — Accompagnement stratégique d’ateliers d’art</title>
-
+<title>Sextant — Accompagnement stratégique d'ateliers d'art</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --teal:       #1a5c5a;
+    --teal-light: #2a7a77;
+    --teal-pale:  #e8f2f1;
+    --gold:       #8a6d1e;
+    --gold-light: #b8922a;
+    --gold-pale:  #f5edd8;
+    --beige:      #faf8f4;
+    --beige-dark: #f0ece3;
+    --text:       #2c2825;
+    --text-mid:   #5c5650;
+    --text-light: #9a9590;
+    --rule:       rgba(138,109,30,0.25);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--beige);
+    color: var(--text);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
 
-body{
-font-family: Arial, sans-serif;
-margin:0;
-background:#f7f3eb;
-color:#2c2a26;
-line-height:1.6;
-}
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.8rem 4rem;
+    background: rgba(250,248,244,0.94);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo { display: flex; align-items: center; text-decoration: none; }
+  .nav-logo img { height: 52px; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 0.78rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-mid); transition: color .25s;
+  }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-links a.active { color: var(--teal); border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
 
-header{
-padding:30px;
-text-align:center;
-border-bottom:1px solid #ddd;
-}
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 5rem;
+    max-width: 1200px; margin: 0 auto;
+    position: relative;
+  }
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.72rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 2rem;
+  }
+  .hero-eyebrow::after { content:''; width:3rem; height:1px; background: var(--rule); }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 300; line-height: 1.15;
+    color: var(--teal); margin-bottom: 2.5rem;
+    max-width: 16ch;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-accroche {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+    font-style: italic; font-weight: 300;
+    color: var(--text-mid); line-height: 1.7;
+    max-width: 58ch; margin-bottom: 3rem;
+    border-left: 2px solid var(--gold);
+    padding-left: 1.5rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; text-decoration: none;
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    font-family: 'Jost', sans-serif; font-weight: 400;
+    padding: 0.9rem 2rem; transition: all .25s; cursor: pointer; border: none;
+  }
+  .btn--teal { background: var(--teal); color: white; }
+  .btn--teal:hover { background: var(--teal-light); }
+  .btn--outline { border: 1px solid var(--teal); color: var(--teal); background: transparent; }
+  .btn--outline:hover { background: var(--teal); color: white; }
 
-h1{
-font-size:40px;
-margin-bottom:10px;
-}
+  /* SECTION DIVIDER */
+  .section-divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(to right, transparent, var(--rule) 30%, var(--rule) 70%, transparent);
+  }
 
-.hero{
-max-width:900px;
-margin:80px auto;
-text-align:center;
-padding:20px;
-}
+  /* SECTION */
+  .section { max-width: 1200px; margin: 0 auto; padding: 6rem 4rem; }
+  .section-label {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.7rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+  }
+  .section-label::before { content:''; width:2rem; height:1px; background: var(--gold); }
 
-.hero p{
-font-size:20px;
-}
+  /* INTRO BLOC */
+  .intro-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+  }
+  .intro-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 300; line-height: 1.3;
+    color: var(--teal); margin-bottom: 1.5rem;
+  }
+  .intro-text p { font-size: 0.93rem; color: var(--text-mid); margin-bottom: 1.1rem; }
+  .intro-aside {
+    background: white; border: 1px solid var(--beige-dark);
+    padding: 2.5rem; position: relative;
+  }
+  .intro-aside::before {
+    content:''; position: absolute;
+    top:0; left:0; right:0; height:3px; background: var(--gold);
+  }
+  .aside-item { margin-bottom: 1.8rem; }
+  .aside-item:last-child { margin-bottom: 0; }
+  .aside-item strong {
+    display: block; font-size: 0.72rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-light); margin-bottom: 0.3rem; font-weight: 400;
+  }
+  .aside-item span { font-size: 0.92rem; color: var(--teal); }
 
-button{
-margin-top:30px;
-padding:14px 24px;
-background:#1f4b43;
-color:white;
-border:none;
-border-radius:6px;
-font-size:16px;
-cursor:pointer;
-}
+  /* OFFRE */
+  .offre-cards {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem;
+  }
+  .offre-card {
+    background: white; border: 1px solid var(--beige-dark);
+    padding: 2.5rem; transition: box-shadow .3s; position: relative;
+  }
+  .offre-card:hover { box-shadow: 0 6px 32px rgba(26,92,90,0.07); }
+  .offre-card-top { position: absolute; top:0; left:0; right:0; height:3px; }
+  .offre-card--f .offre-card-top { background: var(--teal); }
+  .offre-card--a .offre-card-top { background: linear-gradient(to right, var(--teal), var(--gold)); }
+  .offre-card-level { font-size: 0.67rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); margin-bottom: 1rem; }
+  .offre-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 400; color: var(--teal); margin-bottom: 0.3rem;
+  }
+  .offre-card-sub { font-size: 0.78rem; color: var(--gold); font-style: italic; margin-bottom: 1.5rem; }
+  .offre-card-meta { display: flex; gap: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--beige-dark); margin-bottom: 1.5rem; }
+  .offre-card-meta-item strong { display: block; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.15rem; font-weight: 400; }
+  .offre-card-meta-item span { font-size: 0.88rem; color: var(--teal); font-weight: 500; }
+  .offre-card p { font-size: 0.86rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 1.5rem; }
+  .offre-card-financing {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.75rem 1rem; background: var(--teal-pale);
+    font-size: 0.76rem; color: var(--teal); margin-bottom: 1.5rem;
+  }
 
-button:hover{
-background:#173a34;
-}
+  /* CTA BAND */
+  .cta-band {
+    background: var(--teal); padding: 6rem 4rem; text-align: center;
+  }
+  .cta-band h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 300; font-style: italic; color: white;
+    margin-bottom: 1rem;
+  }
+  .cta-band p { font-size: 0.9rem; color: rgba(255,255,255,0.65); margin-bottom: 2.5rem; max-width: 46ch; margin-left: auto; margin-right: auto; }
+  .btn--white { background: white; color: var(--teal); }
+  .btn--white:hover { background: var(--gold-pale); }
+  .btn--outline-white { border: 1px solid rgba(255,255,255,0.5); color: white; background: transparent; }
+  .btn--outline-white:hover { background: rgba(255,255,255,0.1); }
+  .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
+  /* FOOTER */
+  footer {
+    background: var(--text); color: rgba(255,255,255,0.45);
+    padding: 2.5rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.75rem; letter-spacing: 0.05em;
+  }
+  footer a { color: rgba(255,255,255,0.45); text-decoration: none; }
+  footer a:hover { color: white; }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    nav { padding: 0.8rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero, .intro-grid, .offre-cards { grid-template-columns: 1fr; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .cta-band { padding: 4rem 1.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+  }
 </style>
-
 </head>
-
 <body>
 
-<header>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo-sextant-clean.png" alt="Sextant — Accompagnement stratégique d'ateliers d'art">
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Accueil</a></li>
+    <li><a href="accompagnement.html">L'accompagnement</a></li>
+    <li><a href="apropos.html">À propos</a></li>
+    <li><a href="temoignages.html">Témoignages</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
 
-<img src="assets/logo-sextant.png" alt="Sextant – accompagnement stratégique d’ateliers d’art" style="width:160px; margin-bottom:10px;">
-
-<p>Accompagnement stratégique d’ateliers d’art</p>
-
-</header>
-
+<!-- HERO -->
 <section class="hero">
-
-<h2>Structurer son atelier pour en vivre durablement</h2>
-
-<p>
-J’accompagne les artisans d’art à clarifier leur offre,
-piloter leur activité et construire un modèle économique
-cohérent avec leur créativité et la réalité du marché.
-</p>
-
-<button>Découvrir l’accompagnement</button>
-
+  <div class="hero-eyebrow reveal">Accompagnement stratégique d'ateliers d'art</div>
+  <h1 class="reveal" style="transition-delay:.1s">
+    Trouver son cap.<br>
+    Le <em>tenir.</em>
+  </h1>
+  <p class="hero-accroche reveal" style="transition-delay:.2s">
+    Entre la réalité du marché et votre univers créatif, il existe un cap. Sextant vous aide à le trouver — et à le tenir.
+  </p>
+  <div class="hero-actions reveal" style="transition-delay:.3s">
+    <a href="accompagnement.html" class="btn btn--teal">Découvrir l'accompagnement</a>
+    <a href="contact.html" class="btn btn--outline">Prendre contact</a>
+  </div>
 </section>
 
+<div class="section-divider"></div>
+
+<!-- INTRO -->
+<section class="section">
+  <div class="intro-grid">
+    <div class="intro-text reveal">
+      <div class="section-label">Pourquoi Sextant</div>
+      <h2>Le talent ne suffit pas à faire vivre un atelier.</h2>
+      <p>Les artisans d'art ne manquent pas de passion ni de savoir-faire. Ce qui leur manque, c'est souvent la lisibilité : sur leurs coûts, leurs marges, leur offre, leurs clients.</p>
+      <p>Sextant est né de dix ans de pratique artisanale et dix ans de conseil en management. Un regard de l'intérieur, une méthode de l'extérieur.</p>
+      <a href="apropos.html" class="btn btn--outline" style="margin-top:1.5rem">En savoir plus</a>
+    </div>
+    <div class="intro-aside reveal" style="transition-delay:.15s">
+      <div class="aside-item">
+        <strong>Fondateur</strong>
+        <span>Jérôme Roussel — artisan céramiste, coach en management, président du Collectif National des Céramistes (2019–2023)</span>
+      </div>
+      <div class="aside-item">
+        <strong>Public</strong>
+        <span>Artisans d'art en activité, quelle que soit leur discipline</span>
+      </div>
+      <div class="aside-item">
+        <strong>Format</strong>
+        <span>Accompagnement individuel uniquement</span>
+      </div>
+      <div class="aside-item">
+        <strong>Financement</strong>
+        <span>Finançable par les fonds de formation professionnelle</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- OFFRE -->
+<section class="section">
+  <div class="section-label reveal">Les parcours</div>
+  <h2 class="reveal" style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,3vw,2.4rem); font-weight:300; color:var(--teal); margin-bottom:0.5rem; transition-delay:.05s">
+    Deux niveaux d'accompagnement.
+  </h2>
+  <p class="reveal" style="font-size:0.92rem; color:var(--text-mid); max-width:52ch; transition-delay:.1s">
+    Selon où vous en êtes dans votre développement, un parcours adapté — sans surcharge, sans superflu.
+  </p>
+  <div class="offre-cards">
+    <div class="offre-card offre-card--f reveal" style="transition-delay:.15s">
+      <div class="offre-card-top"></div>
+      <div class="offre-card-level">Niveau 1</div>
+      <div class="offre-card-title">Parcours Fondations</div>
+      <div class="offre-card-sub">Structurer pour durer</div>
+      <div class="offre-card-meta">
+        <div class="offre-card-meta-item"><strong>Durée</strong><span>2 mois</span></div>
+        <div class="offre-card-meta-item"><strong>Format</strong><span>Individuel</span></div>
+      </div>
+      <p>Pour les artisans en démarrage ou en phase de structuration. Coûts, marges, offre, canaux de vente — les fondamentaux pour tenir dans la durée.</p>
+      <div class="offre-card-financing">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2 2"/></svg>
+        Finançable par les fonds de formation professionnelle
+      </div>
+      <a href="accompagnement.html" class="btn btn--outline">En savoir plus</a>
+    </div>
+    <div class="offre-card offre-card--a reveal" style="transition-delay:.25s">
+      <div class="offre-card-top"></div>
+      <div class="offre-card-level">Niveau 2</div>
+      <div class="offre-card-title">Accompagnement stratégique</div>
+      <div class="offre-card-sub">Avancé — Choisir, focaliser, développer</div>
+      <div class="offre-card-meta">
+        <div class="offre-card-meta-item"><strong>Durée</strong><span>6 mois</span></div>
+        <div class="offre-card-meta-item"><strong>Format</strong><span>Individuel</span></div>
+      </div>
+      <p>Pour les artisans installés souhaitant piloter autrement. Diagnostic approfondi, sélection de l'offre, structuration des prix, plan d'action 6–12 mois.</p>
+      <div class="offre-card-financing">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2 2"/></svg>
+        Finançable par les fonds de formation professionnelle
+      </div>
+      <a href="accompagnement.html" class="btn btn--teal">En savoir plus</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <h2 class="reveal">Prêt à trouver votre cap ?</h2>
+  <p class="reveal">Un premier échange suffit à savoir si Sextant est fait pour vous. Sans engagement.</p>
+  <div class="cta-actions reveal">
+    <a href="contact.html" class="btn btn--white">Prendre contact</a>
+    <a href="accompagnement.html" class="btn btn--outline-white">Découvrir l'accompagnement</a>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html">
+    <img src="logo-sextant-clean.png" alt="Sextant" style="height:36px; filter:brightness(0) invert(1); opacity:0.7;">
+  </a>
+  <span>Accompagnement stratégique d'ateliers d'art</span>
+  <span><a href="mentions.html">Mentions légales</a></span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => io.observe(el));
+</script>
 </body>
 </html>
